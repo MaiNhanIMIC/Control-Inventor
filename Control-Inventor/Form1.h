@@ -168,6 +168,7 @@ namespace CppCLRWinformsProjekt {
 		frame_nonCheck[1] = Function;
 		memcpy(&frame_nonCheck[2], &Data_Addr, sizeof(Data_Addr));
 		memcpy(&frame_nonCheck[4], &Data_Cont, sizeof(Data_Cont));
+		//frame_nonCheck[4] = Data_Cont;
 		uint16_t check = crc_chk(frame_nonCheck, sizeof(frame_nonCheck));
 		char frameRTU[8];
 		memcpy(frameRTU, frame_nonCheck, sizeof(frame_nonCheck));
@@ -246,7 +247,7 @@ private: System::Void formClosing_Func(System::Object^ sender, System::Windows::
 
 private: System::Void start_bt_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-	FrameRTU_Get(0x01, 0x06, 0x0002, 0x1200); //start
+	FrameRTU_Get(0x01, 0x06, 0x0020, 0x1200); //start
 	for (int i = 0; i < 8; i++)
 	{
 		Debug::Write(" 0x" + frameRTU_arr[i].ToString("X2"));
@@ -254,7 +255,7 @@ private: System::Void start_bt_Click(System::Object^ sender, System::EventArgs^ 
 	serialPort1->Write(frameRTU_arr, 0, 8);
 }
 private: System::Void stop_bt_Click(System::Object^ sender, System::EventArgs^ e) {
-	FrameRTU_Get(0x01, 0x06, 0x0002, 0x0011); //stop
+	FrameRTU_Get(0x01, 0x06, 0x0020, 0x0100); //stop
 	for (int i = 0; i < 8; i++)
 	{
 		Debug::Write(" 0x" + frameRTU_arr[i].ToString("X2"));
